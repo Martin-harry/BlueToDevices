@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">蓝牙调试</string>
+    <string name="appHeader">BLE蓝牙调试</string>
+    <string name="openBlue">请先打开蓝牙！</string>
+    <string name="appLocal">请打开定位服务！</string>
+    <string name="start">开始扫描</string>
+    <string name="stop">停止扫描</string>
+    <string name="connt">连接</string>
+    <string name="conntFaile">连接失败</string>
+    <string name="conntSuccess">连接成功</string>
+    <string name="stopConnt">断开连接</string>
+    <string name="conntIstop">连接断开！</string>
+    <string name="conntIsFail">设备异常，请重新操作！</string>
+    <string name="inCook">进入操作</string>
+    <string name="read">读取</string>
+    <string name="loading">加载中</string>
+    <string name="otherDevice">未知设备</string>
+    <string name="serverId">请输入服务的UUID</string>
+    <string name="readId">请输入读的UUID</string>
+    <string name="writId">请输入写的UUID</string>
+    <string name="paramWrit">请输入服务、特征值！</string>
+    <string name="appType">客户端状态：xxxx</string>
+    <string name="nearMath">读取最近一次血糖数据</string>
+    <string name="nearOil">读取最近一次血脂数据</string>
+    <string name="math">原始数据</string>
+    <string name="rsMath">解析数据</string>
+    <string name="writSuccess">数据发送成功</string>
+    <string name="writFaile">数据发送失败</string>
+</resources>
