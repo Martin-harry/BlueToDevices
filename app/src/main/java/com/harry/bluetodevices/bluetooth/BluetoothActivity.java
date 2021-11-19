@@ -1,4 +1,4 @@
-package com.harry.bluetodevices.view;
+package com.harry.bluetodevices.bluetooth;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -42,7 +42,7 @@ import java.util.List;
  * @address
  * @Desc MainActivity
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class BluetoothActivity extends BaseActivity implements View.OnClickListener {
     private Button search;
     private ListView list_device;
     private ImageView img_loading;
@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initView() {
+        setStatusBg(4);
         search = findViewById(R.id.btn_scan);
         search.setText(R.string.start);
         img_loading = findViewById(R.id.img_loading);
@@ -68,7 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         animation.setInterpolator(new LinearInterpolator());
 
-        mDeviceAdapter = new DeviceAdapter(MainActivity.this);
+        mDeviceAdapter = new DeviceAdapter(BluetoothActivity.this);
         mDeviceAdapter.setOnDeviceClickListener(new DeviceAdapter.OnDeviceClickListener() {
             @Override
             public void onConnect(BleDevice bleDevice) {//连接
@@ -89,7 +90,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onDetail(BleDevice bleDevice) {//进入操作
                 if (BleManager.getInstance().isConnected(bleDevice)) {
                     Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, DevicesActivity.class);
+                    intent.setClass(BluetoothActivity.this, DevicesActivity.class);
                     intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
                     startActivity(intent);
                 }
@@ -171,7 +172,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 img_loading.setVisibility(View.INVISIBLE);
                 search.setText(R.string.start);
                 progressDialog.dismiss();
-                Toast.makeText(MainActivity.this, R.string.conntFaile, Toast.LENGTH_LONG).show();
+                Toast.makeText(BluetoothActivity.this, R.string.conntFaile, Toast.LENGTH_LONG).show();
                 LogUtils.e("search---", "连接失败");
             }
 
@@ -181,7 +182,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (status == 0) {//状态值
                     if (BleManager.getInstance().isConnected(bleDevice)) {
                         Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, DevicesActivity.class);
+                        intent.setClass(BluetoothActivity.this, DevicesActivity.class);
                         intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
                         startActivity(intent);
                     }
@@ -193,7 +194,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 //                saveDeviceAddress(bleDevice);
 
-                Toast.makeText(MainActivity.this, R.string.conntSuccess, Toast.LENGTH_LONG).show();
+                Toast.makeText(BluetoothActivity.this, R.string.conntSuccess, Toast.LENGTH_LONG).show();
                 LogUtils.e("search---", "连接成功");
 
                 int reConnectCount = BleManager.getInstance().getReConnectCount();
@@ -222,10 +223,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mDeviceAdapter.notifyDataSetChanged();
 
                 if (isActiveDisConnected) {
-                    Toast.makeText(MainActivity.this, R.string.conntIstop, Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothActivity.this, R.string.conntIstop, Toast.LENGTH_LONG).show();
                     LogUtils.e("search---", "连接断开！");
                 } else {
-                    Toast.makeText(MainActivity.this, R.string.conntIsFail, Toast.LENGTH_LONG).show();
+                    Toast.makeText(BluetoothActivity.this, R.string.conntIsFail, Toast.LENGTH_LONG).show();
                     LogUtils.e("search---", "设备异常，请重新操作！");
 //                    getDeviceAndConnect();
                     ObserverManager.getInstance().notifyObserver(bleDevice);
@@ -324,13 +325,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         BleManager.getInstance().destroy();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(true);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            moveTaskToBack(true);
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
 }

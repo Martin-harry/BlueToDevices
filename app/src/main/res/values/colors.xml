@@ -11,4 +11,6 @@
     <color name="black">#000000</color>
     <color name="yellow">#F8E01C</color>
     <color name="pink">#FF818C</color>
+    <color name="read">#FD5F78</color>
+    <color name="write">#FDC31D</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.harry.bluetodevices.view;
+package com.harry.bluetodevices.bluetooth;
 
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -55,6 +55,7 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
     private String Rid;
     private String Tid;
     //通知返回数据
+    private byte[] bytes;
     private TextView math;
     private TextView txType;
     private TextView txt;
@@ -63,7 +64,6 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
     private TextView high;
     private TextView high_txt;
     private TextView dataMath;
-    private byte[] bytes;
     private Button wrtMath;
     private TextView nearTxt;
     private RelativeLayout nearRet;
@@ -82,6 +82,7 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initView() {
+        setStatusBg(4);
         bleDevice = getIntent().getParcelableExtra(KEY_DATA);
 
         et_server = findViewById(R.id.et_server);
@@ -252,7 +253,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                     String s3 = DealNum.substring(BleService.serviceUuid_5DT, 4, 8);
                     String s4 = DealNum.substring(BleService.serviceUuid_T3, 4, 8);
                     String s5 = DealNum.substring(BleService.serviceUuid_TCL, 4, 8);
-                    LogUtils.e("服务以及特征值：---", s1 + "---" + s2 + "---" + s3 + "---" + s4 + "---" + s5);
+                    String s6 = DealNum.substring(BleService.serviceUuid_XY_COST, 4, 8);
+                    LogUtils.e("服务以及特征值：---", s1 + "---" + s2 + "---" + s3 + "---" + s4 + "---" + s5 + "---" + s6);
                     if (server != null && !isEmpty(server)) {
                         if (s1.equalsIgnoreCase(server)) {//ffe0(XY-3A)
                             serverUuid = BleService.serviceUuid_XY_3A;
@@ -284,6 +286,12 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                                 opeNotify(bleDevice);
                             }
                             LogUtils.e("服务以及特征值：---非标准（服务）", serverUuid + "---");
+                        } else if (s6.equalsIgnoreCase(server)) {//ff00(XY-3A 低成本)
+                            serverUuid = BleService.serviceUuid_XY_COST;
+                            if (bleDevice != null) {
+                                opeNotify(bleDevice);
+                            }
+                            LogUtils.e("服务以及特征值：---非标准（服务）", serverUuid + "---");
                         }
                     }
                 }
@@ -306,7 +314,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                     String RDT = DealNum.substring(BleService.RUuid_RDT, 4, 8);
                     String RT3 = DealNum.substring(BleService.RUuid_RT3, 4, 8);
                     String RTC = DealNum.substring(BleService.RUuid_RTC, 4, 8);
-                    LogUtils.e("服务以及特征值：---", RXY + "---" + RDU + "---" + RDT + "---" + RT3 + "---" + RTC);
+                    String RCOST = DealNum.substring(BleService.RUuid_XY_COST, 4, 8);
+                    LogUtils.e("服务以及特征值：---", RXY + "---" + RDU + "---" + RDT + "---" + RT3 + "---" + RTC + "---" + RCOST);
                     if (rid != null && !isEmpty(rid)) {
                         if (RXY.equalsIgnoreCase(rid)) {//ffe1(XY-3A)
                             Rid = BleService.RUuid_XY_3A;
@@ -334,6 +343,12 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                             LogUtils.e("服务以及特征值：---非标准（读）", Rid);
                         } else if (RTC.equalsIgnoreCase(rid)) {//ff01(TCL-1)
                             Rid = BleService.RUuid_RTC;
+                            if (bleDevice != null) {
+                                opeNotify(bleDevice);
+                            }
+                            LogUtils.e("服务以及特征值：---非标准（读）", Rid);
+                        } else if (RCOST.equalsIgnoreCase(rid)) {//ff01(XY-3A 低成本)
+                            Rid = BleService.RUuid_XY_COST;
                             if (bleDevice != null) {
                                 opeNotify(bleDevice);
                             }
@@ -445,7 +460,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                     String T4B = DealNum.substring(BleService.TUuid_T4B, 4, 8);
                     String TF3 = DealNum.substring(BleService.TUuid_TF3, 4, 8);
                     String TC1 = DealNum.substring(BleService.TUuid_TC1, 4, 8);
-                    LogUtils.e("服务以及特征值：---", TXY + "---" + TDU + "---" + T4B + "---" + TF3 + "---" + TC1);
+                    String TCOST = DealNum.substring(BleService.TUuid_XY_COST, 4, 8);
+                    LogUtils.e("服务以及特征值：---", TXY + "---" + TDU + "---" + T4B + "---" + TF3 + "---" + TC1 + "---" + TCOST);
                     if (TXY.equalsIgnoreCase(txMath)) {//ffe1(XY-3A)
                         Tid = BleService.TUuid_XY_3A;
                         if (bleDevice != null) {
@@ -472,6 +488,12 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                         LogUtils.e("服务以及特征值：---非标准（写）", Tid);
                     } else if (TC1.equalsIgnoreCase(txMath)) {//ff01(TCL-1)
                         Tid = BleService.TUuid_TC1;
+                        if (bleDevice != null) {
+                            sendWrite(bleDevice);
+                        }
+                        LogUtils.e("服务以及特征值：---非标准（写）", Tid);
+                    } else if (TCOST.equalsIgnoreCase(txMath)) {//ff01(XY-3A 低成本)
+                        Tid = BleService.TUuid_XY_COST;
                         if (bleDevice != null) {
                             sendWrite(bleDevice);
                         }

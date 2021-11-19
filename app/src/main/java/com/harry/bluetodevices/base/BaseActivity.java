@@ -18,10 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        setStatusBg(1);
-        getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         super.onCreate(savedInstanceState);
         setContentView(createViews());//初始化视图
         initView();//初始化控件
@@ -42,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             StatusBarUtils.setWindowStatusBarColorText(this, R.color.white);//设置状态栏颜色为白色
         }else if(i == 3){
             StatusBarUtils.setWindowStatusBarColor(this, R.color.startCor);//设置状态栏颜色为橘橙色
+        }else if(i == 4){
+            StatusBarUtils.setWindowStatusBarColor(this, R.color.black);//设置状态栏颜色为黑色
         }
     }
 

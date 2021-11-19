@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_privacy_shape"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_btn_bottom"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="数据写入"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fadingEdgeLength="50dp"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                android:requiresFadingEdge="horizontal">
+
+                <EditText
+                    android:id="@+id/wriEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginTop="10dp"
+                    android:minLines="20"
+                    android:textSize="16sp"
+                    android:gravity="top"/>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_btn_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_agree"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/write_shape"
+                android:onClick="onClickAgree"
+                android:text="写入" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+

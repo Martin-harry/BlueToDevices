@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--去掉标题-->
+    <style name="AppThemeTitle" parent="Theme.AppCompat.Light.NoActionBar"/>
+
     <!-- 自定义dialog的样式 -->
     <style name="CustomDialog">
         <item name="android:windowFrame">@null</item><!--边框-->

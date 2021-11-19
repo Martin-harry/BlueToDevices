@@ -26,4 +26,5 @@
     <string name="rsMath">解析数据</string>
     <string name="writSuccess">数据发送成功</string>
     <string name="writFaile">数据发送失败</string>
+    <string name="write">写入</string>
 </resources>

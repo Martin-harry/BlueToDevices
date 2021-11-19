@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.NFC" /> <!-- 当前设备必须要有NFC芯片 -->
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
 
     <meta-data
         android:name="UMENG_CHANNEL"
@@ -24,8 +28,20 @@
         android:roundIcon="@mipmap/bluetooth"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".base.BaseActivity" />
-        <activity android:name=".view.MainActivity">
+        <activity
+            android:name=".nfc.WriteNfcActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppThemeTitle" />
+        <activity
+            android:name=".nfc.ReadNfcActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppThemeTitle" />
+        <activity
+            android:name=".nfc.NfcActivity"
+            android:theme="@style/AppThemeTitle" />
+        <activity
+            android:name=".view.WelcomeActivity"
+            android:theme="@style/AppThemeTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +49,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.DevicesActivity"
+            android:name=".bluetooth.BluetoothActivity"
+            android:theme="@style/AppThemeTitle" >
+
+        </activity>
+        <activity
+            android:name=".bluetooth.DevicesActivity"
+            android:theme="@style/AppThemeTitle"
             android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 
