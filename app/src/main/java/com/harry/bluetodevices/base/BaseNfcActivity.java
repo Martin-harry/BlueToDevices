@@ -46,7 +46,8 @@ public abstract class BaseNfcActivity extends AppCompatActivity {
         //此处adapter需要重新获取，否则无法获取message
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         //一旦截获NFC消息，就会通过PendingIntent调用窗口
-        mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()), 0);
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
     }
 
     /**
@@ -72,14 +73,14 @@ public abstract class BaseNfcActivity extends AppCompatActivity {
     }
 
     //设置状态栏颜色
-    public void setStatusBg(int i){
-        if(i == 1){
+    public void setStatusBg(int i) {
+        if (i == 1) {
             StatusBarUtils.setWindowStatusBarColor(this, R.color.SplGreen);//设置状态栏颜色为绿色
-        }else if(i == 2){
+        } else if (i == 2) {
             StatusBarUtils.setWindowStatusBarColorText(this, R.color.white);//设置状态栏颜色为白色
-        }else if(i == 3){
+        } else if (i == 3) {
             StatusBarUtils.setWindowStatusBarColor(this, R.color.startCor);//设置状态栏颜色为橘橙色
-        }else if(i == 4){
+        } else if (i == 4) {
             StatusBarUtils.setWindowStatusBarColor(this, R.color.black);//设置状态栏颜色为黑色
         }
     }

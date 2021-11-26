@@ -41,7 +41,7 @@ public class NfcActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.read:
-                startActivity(new Intent(this, ReadNfcActivity.class));
+//                startActivity(new Intent(this, ReadNfcActivity.class));
 
                 break;
             case R.id.write:

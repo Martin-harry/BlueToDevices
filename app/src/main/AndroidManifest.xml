@@ -29,13 +29,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".bluetooth.BloodSugarActivity"
+            android:theme="@style/AppThemeTitle"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
             android:name=".nfc.WriteNfcActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppThemeTitle" />
         <activity
             android:name=".nfc.ReadNfcActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppThemeTitle" />
+            android:theme="@style/AppThemeTitle">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".nfc.NfcActivity"
             android:theme="@style/AppThemeTitle" />
@@ -50,9 +70,7 @@
         </activity>
         <activity
             android:name=".bluetooth.BluetoothActivity"
-            android:theme="@style/AppThemeTitle" >
-
-        </activity>
+            android:theme="@style/AppThemeTitle" />
         <activity
             android:name=".bluetooth.DevicesActivity"
             android:theme="@style/AppThemeTitle"

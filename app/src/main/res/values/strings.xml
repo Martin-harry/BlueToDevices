@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">蓝牙调试</string>
+    <string name="app_name">调试工具</string>
     <string name="appHeader">BLE蓝牙调试</string>
     <string name="openBlue">请先打开蓝牙！</string>
     <string name="appLocal">请打开定位服务！</string>

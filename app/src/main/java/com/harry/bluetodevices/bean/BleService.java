@@ -38,4 +38,21 @@ public class BleService {
     public static final String serviceUuid_TCL = "0000ff00-0000-1000-8000-00805f9b34fb";
     public static final String RUuid_RTC = "0000ff01-0000-1000-8000-00805f9b34fb";
     public static final String TUuid_TC1 = "0000ff01-0000-1000-8000-00805f9b34fb";
+    //BJYC-CGM-01
+    //电池服务（标准服务）
+    public static final String serviceUuid_BATTERY = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String RUuid_BATTERY = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String TUuid_BATTERY = "0000ff01-0000-1000-8000-00805f9b34fb";
+    //血糖服务
+    public static final String serviceUuid_BLOOD_SUGAR = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String RUuid_BLOOD_SUGAR = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String TUuid_BLOOD_SUGAR = "0000ff01-0000-1000-8000-00805f9b34fb";
+    //系统信息服务
+    public static final String serviceUuid_SYSTEM_MSG = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String RUuid_SYSTEM_MSG = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String TUuid_SYSTEM_MSG = "0000ff01-0000-1000-8000-00805f9b34fb";
+    //时间服务（定制服务）
+    public static final String serviceUuid_TIME = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String RUuid_TIME = "0000ff01-0000-1000-8000-00805f9b34fb";
+    public static final String TUuid_TIME = "0000ff01-0000-1000-8000-00805f9b34fb";
 }

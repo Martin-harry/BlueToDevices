@@ -31,7 +31,7 @@ import java.util.Locale;
  * @address
  * @Desc NFC写入
  */
-public class WriteNfcActivity extends BaseNfcActivity {
+public class WriteNfcActivity extends BaseNfcActivity implements View.OnClickListener{
 
     private ImageView back;
     private String mTxt;
@@ -47,17 +47,7 @@ public class WriteNfcActivity extends BaseNfcActivity {
     protected void initView() {
         setStatusBg(4);
         back = findViewById(R.id.back);
-
-    }
-
-    @Override
-    protected void initData() {
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        back.setOnClickListener(this);
     }
 
     private void showPopu() {
@@ -104,6 +94,11 @@ public class WriteNfcActivity extends BaseNfcActivity {
         } else {
             Toast.makeText(this, "写入失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     /**
@@ -157,5 +152,14 @@ public class WriteNfcActivity extends BaseNfcActivity {
     @Override
     protected int createViews() {
         return R.layout.activity_write_nfc;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                finish();
+                break;
+        }
     }
 }

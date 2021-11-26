@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bluetooth.DevicesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/devices_header" />
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/et_background"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:src="@mipmap/service" />
+
+                <EditText
+                    android:id="@+id/et_server"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="35dp"
+                    android:background="@null"
+                    android:hint="@string/serverId"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/read_back"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"
+                    android:src="@mipmap/read" />
+
+                <EditText
+                    android:id="@+id/et_rx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="35dp"
+                    android:background="@null"
+                    android:hint="@string/readId"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/write_back"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="48dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="7dp"
+                    android:src="@mipmap/write" />
+
+                <EditText
+                    android:id="@+id/et_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="35dp"
+                    android:background="@null"
+                    android:hint="@string/writId"
+                    android:singleLine="true" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/notifyType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/appType"
+            android:textColor="@color/SplGreen"
+            android:textSize="17sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/math"
+            android:textColor="@color/SplGreen"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/math"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_shape"
+            android:padding="5dp"
+            android:textColor="@color/SplGreen"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/serviceTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:text="电池服务"
+            android:textColor="@color/SplGreen"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:id="@+id/batteryRet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_shape"
+            android:padding="3dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/batteryLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="电池电量：56%"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/levelType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/batteryLevel"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="当前电池状态：充电中"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bloodRet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_shape"
+            android:padding="3dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/devProdct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="产品信息：血糖仪"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mathNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/devProdct"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="数据序号：0012A"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/currenTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mathNumber"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="电流值：25nA"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tempTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/currenTxt"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="温度值：36℃"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/batteryTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tempTxt"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="运行时间：2021-11-24 10:11:25"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/systemRet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_shape"
+            android:padding="3dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/systemTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="MAC地址：192.168.45.24"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/systemType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/systemTxt"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="MAC地址数据格式：FF:00:00:00:00"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/timeRet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_shape"
+            android:padding="3dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="当前系统时间：2021-11-24 10:12:25"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/runTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/time"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:text="当前运行时间：2021-11-24 10:12:25"
+                android:textColor="@color/SplGreen"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

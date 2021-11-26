@@ -1,21 +1,24 @@
 package com.harry.bluetodevices.nfc;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.nfc.tech.Ndef;
-import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.harry.bluetodevices.R;
 import com.harry.bluetodevices.base.BaseNfcActivity;
+import com.harry.bluetodevices.nfc.read.NdefMessageParser;
+import com.harry.bluetodevices.nfc.read.ParsedNdefRecord;
+import com.harry.bluetodevices.util.NfcUtil;
+import com.harry.bluetodevices.util.TimeFormatUtils;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Martin-harry
@@ -23,13 +26,21 @@ import java.util.Arrays;
  * @address
  * @Desc NFC读取
  */
-public class ReadNfcActivity extends BaseNfcActivity {
+public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickListener {
 
     private TextView mNfcText;
     private ImageView back;
-    private String mTagText;
     private LinearLayout linTxt;
     private ImageView readPic;
+    private TextView systemTxt;
+    private TextView batteryNum;
+    private TextView levelType;
+    private TextView mathNumber;
+    private TextView currenTxt;
+    private TextView tempTxt;
+    private TextView time;
+    private TextView systemTime;
+    private Button bt;
 
     @Override
     protected void initView() {
@@ -38,104 +49,106 @@ public class ReadNfcActivity extends BaseNfcActivity {
         readPic = findViewById(R.id.readPic);
         linTxt = findViewById(R.id.linTxt);
         mNfcText = findViewById(R.id.nfcTxt);
+        systemTxt = findViewById(R.id.systemTxt);
+        batteryNum = findViewById(R.id.batteryNum);
+        levelType = findViewById(R.id.levelType);
+        mathNumber = findViewById(R.id.mathNumber);
+        currenTxt = findViewById(R.id.currenTxt);
+        tempTxt = findViewById(R.id.tempTxt);
+        time = findViewById(R.id.time);
+        systemTime = findViewById(R.id.systemTime);
+        bt = findViewById(R.id.bt);
+        back.setOnClickListener(this);
+        bt.setOnClickListener(this);
 
+        resolveIntent(getIntent());
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-        //1.获取Tag对象
-        Tag detectedTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        //2.获取Ndef的实例
-        Ndef ndef = Ndef.get(detectedTag);
-//        mTagText = ndef.getType() + "\nmaxsize:" + ndef.getMaxSize() + "bytes\n\n";
-        mTagText = "";
-        readNfcTag(intent);
-        if(mTagText != null){
-            readPic.setVisibility(View.GONE);
-            linTxt.setVisibility(View.VISIBLE);
-            mNfcText.setText(mTagText);
-        }
-    }
-
-    /**
-     * 读取NFC标签文本数据
-     */
-    private void readNfcTag(Intent intent) {
-        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
-                    NfcAdapter.EXTRA_NDEF_MESSAGES);
-            NdefMessage msgs[] = null;
-            int contentSize = 0;
-            if (rawMsgs != null) {
-                msgs = new NdefMessage[rawMsgs.length];
-                for (int i = 0; i < rawMsgs.length; i++) {
-                    msgs[i] = (NdefMessage) rawMsgs[i];
-                    contentSize += msgs[i].toByteArray().length;
-                }
-            }
-            try {
-                if (msgs != null) {
-                    NdefRecord record = msgs[0].getRecords()[0];
-                    String textRecord = parseTextRecord(record);
-//                    mTagText += textRecord + "\n\ntext\n" + contentSize + " bytes";
-                    mTagText += textRecord + "\n\n" + contentSize + "bytes";
-                }
-            } catch (Exception e) {
+        if (mNfcAdapter != null) {
+            if (mNfcAdapter.isEnabled()) {
+                resolveIntent(getIntent());
             }
         }
     }
 
     /**
-     * 解析NDEF文本数据，从第三个字节开始，后面的文本数据
+     * 初次判断卡片的类型
      *
-     * @param ndefRecord
-     * @return
+     * @param intent
      */
-    public static String parseTextRecord(NdefRecord ndefRecord) {
-        /**
-         * 判断数据是否为NDEF格式
-         */
-        //判断TNF
-        if (ndefRecord.getTnf() != NdefRecord.TNF_WELL_KNOWN) {
-            return null;
+    private void resolveIntent(Intent intent) {
+        NdefMessage[] msgs = NfcUtil.getNdefMsg(intent); //解析nfc标签中的数据
+
+        if (msgs == null) {
+            Toast.makeText(ReadNfcActivity.this, "非NFC启动", Toast.LENGTH_SHORT).show();
+        } else {
+            setNFCMsgView(msgs);
         }
-        //判断可变的长度的类型
-        if (!Arrays.equals(ndefRecord.getType(), NdefRecord.RTD_TEXT)) {
-            return null;
+    }
+
+    /**
+     * 显示扫描后的信息
+     *
+     * @param ndefMessages ndef数据
+     */
+    @SuppressLint("SetTextI18n")
+    private void setNFCMsgView(NdefMessage[] ndefMessages) {
+        if (ndefMessages == null || ndefMessages.length == 0) {
+            return;
         }
-        try {
-            //获得字节数组，然后进行分析
-            byte[] payload = ndefRecord.getPayload();
-            //下面开始NDEF文本数据第一个字节，状态字节
-            //判断文本是基于UTF-8还是UTF-16的，取第一个字节"位与"上16进制的80，16进制的80也就是最高位是1，
-            //其他位都是0，所以进行"位与"运算后就会保留最高位
-            String textEncoding = ((payload[0] & 0x80) == 0) ? "UTF-8" : "UTF-16";
-            //3f最高两位是0，第六位是1，所以进行"位与"运算后获得第六位
-            int languageCodeLength = payload[0] & 0x3f;
-            //下面开始NDEF文本数据第二个字节，语言编码
-            //获得语言编码
-            String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-            //下面开始NDEF文本数据后面的字节，解析出文本
-            String textRecord = new String(payload, languageCodeLength + 1,
-                    payload.length - languageCodeLength - 1, textEncoding);
-            return textRecord;
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
+
+//        mNfcText.setText("Payload:" + new String(ndefMessages[0].getRecords()[0].getPayload()) + "\n");
+        readPic.setVisibility(View.GONE);
+        linTxt.setVisibility(View.VISIBLE);
+
+        List<ParsedNdefRecord> records = NdefMessageParser.parse(ndefMessages[0]);
+        final int size = records.size();
+        for (int i = 0; i < size; i++) {
+            ParsedNdefRecord record = records.get(i);
+            mNfcText.setText("Tag ID (hex): " + record.getViewText());
+
+            systemTxt.setText("产品信息：");
+            batteryNum.setText("电池电量：");
+            levelType.setText("当前电池状态：");
+            mathNumber.setText("数据序号：");
+            currenTxt.setText("电流值：");//nA
+            tempTxt.setText("温度值：");//℃
+            time.setText("当前运行时间：");
+            String currentTime = TimeFormatUtils.getCurrentTime();
+            systemTime.setText("当前系统时间：" + currentTime);
+            Log.e("扫描后的数据信息 >>>>", "setNFCMsgView: " + record.getViewText());
         }
     }
 
     @Override
     protected void initData() {
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
     }
 
     @Override
     protected int createViews() {
         return R.layout.activity_read_nfc;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.bt:
+                mNfcText.setText("");
+                systemTxt.setText("");
+                batteryNum.setText("");
+                levelType.setText("");
+                mathNumber.setText("");
+                currenTxt.setText("");
+                tempTxt.setText("");
+                time.setText("");
+                systemTime.setText("");
+                break;
+        }
     }
 }

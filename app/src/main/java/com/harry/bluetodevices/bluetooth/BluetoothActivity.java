@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -89,10 +90,18 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onDetail(BleDevice bleDevice) {//进入操作
                 if (BleManager.getInstance().isConnected(bleDevice)) {
+                    String bleDeviceName = bleDevice.getName();
+                    Log.e("连接成功 设备仪器 >>>>", "onDetail: " + "当前设备名：" + bleDeviceName);
                     Intent intent = new Intent();
-                    intent.setClass(BluetoothActivity.this, DevicesActivity.class);
-                    intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
-                    startActivity(intent);
+                    if(bleDeviceName.equals("BJYC-CGM-01")){
+                        intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                        intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                        startActivity(intent);
+                    }else{
+                        intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                        intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -181,10 +190,18 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                 LogUtils.e("search---状态值", status + "");
                 if (status == 0) {//状态值
                     if (BleManager.getInstance().isConnected(bleDevice)) {
+                        String bleDeviceName = bleDevice.getName();
+                        Log.e("连接成功 设备仪器 >>>>", "onConnectSuccess: "+bleDeviceName );
                         Intent intent = new Intent();
-                        intent.setClass(BluetoothActivity.this, DevicesActivity.class);
-                        intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
-                        startActivity(intent);
+                        if(bleDeviceName.equals("BJYC-CGM-01")){
+                            intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                            intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                            startActivity(intent);
+                        }else{
+                            intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                            intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                            startActivity(intent);
+                        }
                     }
                 }
 
