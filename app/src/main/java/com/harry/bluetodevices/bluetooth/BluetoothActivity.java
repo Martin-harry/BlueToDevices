@@ -95,10 +95,10 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                     Intent intent = new Intent();
                     if(bleDeviceName.equals("BJYC-CGM-01")){
                         intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
-                        intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                        intent.putExtra(BloodSugarActivity.KEY_DATA, bleDevice);
                         startActivity(intent);
                     }else{
-                        intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                        intent.setClass(BluetoothActivity.this, DevicesActivity.class);
                         intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
                         startActivity(intent);
                     }
@@ -195,10 +195,10 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                         Intent intent = new Intent();
                         if(bleDeviceName.equals("BJYC-CGM-01")){
                             intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
-                            intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
+                            intent.putExtra(BloodSugarActivity.KEY_DATA, bleDevice);
                             startActivity(intent);
                         }else{
-                            intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
+                            intent.setClass(BluetoothActivity.this, DevicesActivity.class);
                             intent.putExtra(DevicesActivity.KEY_DATA, bleDevice);
                             startActivity(intent);
                         }

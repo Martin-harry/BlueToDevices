@@ -7,6 +7,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ import java.util.Locale;
  * @address
  * @Desc NFC写入
  */
-public class WriteNfcActivity extends BaseNfcActivity implements View.OnClickListener{
+public class WriteNfcActivity extends BaseNfcActivity implements View.OnClickListener {
 
     private ImageView back;
     private String mTxt;
@@ -72,8 +73,12 @@ public class WriteNfcActivity extends BaseNfcActivity implements View.OnClickLis
             @Override
             public void onClick(View v) {
                 mTxt = wriEdt.getText().toString().trim();
-                dialog.dismiss();
-                Toast.makeText(WriteNfcActivity.this, mTxt, Toast.LENGTH_SHORT).show();
+                if (mTxt != null && !TextUtils.isEmpty(mTxt)) {
+                    dialog.dismiss();
+                    Toast.makeText(WriteNfcActivity.this, mTxt, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(WriteNfcActivity.this, "数据写入信息不能为空！", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

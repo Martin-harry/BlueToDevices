@@ -36,7 +36,7 @@
         android:layout_centerInParent="true"
         android:scaleType="fitXY"
         android:src="@mipmap/nfc_run"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/linTxt"
@@ -44,7 +44,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="65dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,5 +163,6 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/btn_background"
         android:text="清除"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 </RelativeLayout>

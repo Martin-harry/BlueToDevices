@@ -18,6 +18,10 @@ import com.harry.bluetodevices.nfc.read.ParsedNdefRecord;
 import com.harry.bluetodevices.util.NfcUtil;
 import com.harry.bluetodevices.util.TimeFormatUtils;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 /**
@@ -102,23 +106,46 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
 //        mNfcText.setText("Payload:" + new String(ndefMessages[0].getRecords()[0].getPayload()) + "\n");
         readPic.setVisibility(View.GONE);
         linTxt.setVisibility(View.VISIBLE);
+        bt.setVisibility(View.VISIBLE);
 
-        List<ParsedNdefRecord> records = NdefMessageParser.parse(ndefMessages[0]);
-        final int size = records.size();
-        for (int i = 0; i < size; i++) {
-            ParsedNdefRecord record = records.get(i);
-            mNfcText.setText("Tag ID (hex): " + record.getViewText());
+        //将数据信息存储到本地
+        try {
+            FileOutputStream fos = new FileOutputStream(getExternalFilesDir(null) + "/NFC读取.txt", true);
+            OutputStreamWriter ost = new OutputStreamWriter(fos);
 
-            systemTxt.setText("产品信息：");
-            batteryNum.setText("电池电量：");
-            levelType.setText("当前电池状态：");
-            mathNumber.setText("数据序号：");
-            currenTxt.setText("电流值：");//nA
-            tempTxt.setText("温度值：");//℃
-            time.setText("当前运行时间：");
-            String currentTime = TimeFormatUtils.getCurrentTime();
-            systemTime.setText("当前系统时间：" + currentTime);
-            Log.e("扫描后的数据信息 >>>>", "setNFCMsgView: " + record.getViewText());
+            List<ParsedNdefRecord> records = NdefMessageParser.parse(ndefMessages[0]);
+            final int size = records.size();
+            for (int i = 0; i < size; i++) {
+                ParsedNdefRecord record = records.get(i);
+                mNfcText.setText("Tag ID (hex): " + record.getViewText());
+
+                systemTxt.setText("产品信息：");
+                batteryNum.setText("电池电量：");
+                levelType.setText("当前电池状态：");
+                mathNumber.setText("数据序号：");
+                currenTxt.setText("电流值：");//nA
+                tempTxt.setText("温度值：");//℃
+                time.setText("当前运行时间：");
+                String currentTime = TimeFormatUtils.getCurrentTime();
+                systemTime.setText("当前系统时间：" + currentTime);
+                Log.e("扫描后的数据信息 >>>>", "setNFCMsgView: " + record.getViewText());
+
+                ost.write("Tag ID(hex)：" + record.getViewText());
+                ost.write("产品信息：" +"\n");
+                ost.write("电池电量："+"\n");
+                ost.write("当前电池状态："+"\n");
+                ost.write("数据序号："+"\n");
+                ost.write("电流值："+"\n");
+                ost.write("温度值："+"\n");
+                ost.write("当前运行时间："+"\n");
+                ost.write("当前系统时间：" + currentTime);
+                ost.write("\n");
+                ost.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
