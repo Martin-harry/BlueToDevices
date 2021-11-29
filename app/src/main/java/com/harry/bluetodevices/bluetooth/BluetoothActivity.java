@@ -217,7 +217,7 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                 int reConnectCount = BleManager.getInstance().getReConnectCount();
                 int splitWriteNum = BleManager.getInstance().getSplitWriteNum();
                 int maxConnectCount = BleManager.getInstance().getMaxConnectCount();
-                LogUtils.e("mtu-----传输单元", "MaxConnect：---" + maxConnectCount + ";ReConnect：---" + reConnectCount + ";SplitWrite：---" + splitWriteNum);
+                LogUtils.e("mtu-----传输单元", "MaxConnect：---" + maxConnectCount + "  ReConnect：---" + reConnectCount + "  SplitWrite：---" + splitWriteNum);
 
                 //设置最大传输单元MTU设置最大传输单元MTU(蓝牙传输数据限制20字节)
                 BleManager.getInstance().setMtu(bleDevice, 512, new BleMtuChangedCallback() {

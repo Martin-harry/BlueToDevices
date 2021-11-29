@@ -79,6 +79,7 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
     private TextView dataMaths_oil;
     private TextView nearXoi;
     private TextView nearHigh;
+    private String sub;
 
     @Override
     protected void initView() {
@@ -646,7 +647,11 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                 OutputStreamWriter ost = new OutputStreamWriter(fos);
 
                 //拆分字符串，16转10进制
-                String subStr = DealNum.substring(hexStr, 20, 22);
+                String subMat = DealNum.substring(hexStr, 20, 22);
+                String subMaH = DealNum.substring(hexStr, 23, 24);
+                String subStr = new StringBuilder().append(subMaH).append(subMat).toString();
+                Log.e("BJYC数据值 notifyData >>>>", subStr);
+
                 int anInt = Integer.parseInt(subStr, 16);
                 float MathUnit = anInt / 10F;
                 addText(txType, "血糖值：");
