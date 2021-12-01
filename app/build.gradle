@@ -69,4 +69,19 @@ dependencies {
 
     api 'com.google.guava:guava:25.1-android'
     implementation project(path: ':FastBleLib')
+
+    //依赖注入
+    //Retrofit+Rxjava
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
+    //ConverterFactory的String依赖包
+    implementation 'com.squareup.retrofit2:converter-scalars:2.4.0'
+    //ConverterFactory的Gson依赖包
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //CallAdapterFactory的Rx依赖包
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.blankj:utilcode:1.25.1'
 }

@@ -1,4 +1,4 @@
-package com.harry.bluetodevices.base;
+package com.harry.bluetodevices.base.app;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.harry.bluetodevices.R;
 import com.harry.bluetodevices.util.StatusBarUtils;
@@ -18,7 +18,7 @@ import com.harry.bluetodevices.util.StatusBarUtils;
  * @Desc 子类在onNewIntent方法中进行NFC标签相关操作。
  * 在onNewIntent方法中执行intent传递过来的Tag数据
  */
-public abstract class BaseNfcActivity extends AppCompatActivity {
+public abstract class BaseNfcActivity extends FragmentActivity {
     protected NfcAdapter mNfcAdapter;
     private PendingIntent mPendingIntent;
 

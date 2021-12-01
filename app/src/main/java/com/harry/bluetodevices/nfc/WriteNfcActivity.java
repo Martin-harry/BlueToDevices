@@ -16,12 +16,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.harry.bluetodevices.R;
-import com.harry.bluetodevices.base.BaseNfcActivity;
+import com.harry.bluetodevices.base.app.BaseNfcActivity;
 
 import java.nio.charset.Charset;
 import java.util.Locale;

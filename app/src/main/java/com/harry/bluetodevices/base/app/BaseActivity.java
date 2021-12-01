@@ -1,9 +1,8 @@
-package com.harry.bluetodevices.base;
+package com.harry.bluetodevices.base.app;
 
 import android.os.Bundle;
-import android.view.WindowManager;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.harry.bluetodevices.R;
 import com.harry.bluetodevices.util.StatusBarUtils;
@@ -14,7 +13,7 @@ import com.harry.bluetodevices.util.StatusBarUtils;
  * @address
  * @Desc activity基类
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -159,6 +159,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/near_background"
+            android:padding="3dp"
             android:visibility="gone">
 
             <TextView
@@ -206,6 +207,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/xz_background"
+            android:padding="3dp"
             android:visibility="gone">
 
             <TextView
@@ -278,7 +280,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/math_background">
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/math_background"
+            android:padding="3dp">
 
             <TextView
                 android:id="@+id/txType"

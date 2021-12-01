@@ -3,9 +3,10 @@ package com.harry.bluetodevices.nfc;
 import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.harry.bluetodevices.R;
-import com.harry.bluetodevices.base.BaseActivity;
+import com.harry.bluetodevices.base.app.BaseActivity;
 
 /**
  * @author Martin-harry
@@ -42,7 +43,7 @@ public class NfcActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.read:
 //                startActivity(new Intent(this, ReadNfcActivity.class));
-
+                Toast.makeText(this, "请将手机NFC感应区靠近其他NFC设备", Toast.LENGTH_LONG).show();
                 break;
             case R.id.write:
                 startActivity(new Intent(this, WriteNfcActivity.class));

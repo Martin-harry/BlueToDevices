@@ -21,7 +21,7 @@ import com.clj.fastble.callback.BleWriteCallback;
 import com.clj.fastble.data.BleDevice;
 import com.clj.fastble.exception.BleException;
 import com.harry.bluetodevices.R;
-import com.harry.bluetodevices.base.BaseActivity;
+import com.harry.bluetodevices.base.app.BaseActivity;
 import com.harry.bluetodevices.bean.BleService;
 import com.harry.bluetodevices.util.DealNum;
 import com.harry.bluetodevices.util.HexUtil;
@@ -79,7 +79,6 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
     private TextView dataMaths_oil;
     private TextView nearXoi;
     private TextView nearHigh;
-    private String sub;
 
     @Override
     protected void initView() {

@@ -11,12 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.harry.bluetodevices.R;
-import com.harry.bluetodevices.base.BaseNfcActivity;
+import com.harry.bluetodevices.base.app.BaseNfcActivity;
+import com.harry.bluetodevices.bean.BloodDate;
 import com.harry.bluetodevices.nfc.read.NdefMessageParser;
 import com.harry.bluetodevices.nfc.read.ParsedNdefRecord;
+import com.harry.bluetodevices.present.BloodPresent;
+import com.harry.bluetodevices.util.LogUtils;
 import com.harry.bluetodevices.util.NfcUtil;
 import com.harry.bluetodevices.util.TimeFormatUtils;
+import com.harry.bluetodevices.view.IView.IBloodView;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,8 +35,9 @@ import java.util.List;
  * @address
  * @Desc NFC读取
  */
-public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickListener {
+public class ReadNfcActivity extends BaseNfcActivity implements IBloodView, View.OnClickListener {
 
+    private BloodPresent bloodPresent;
     private TextView mNfcText;
     private ImageView back;
     private LinearLayout linTxt;
@@ -45,10 +51,14 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
     private TextView time;
     private TextView systemTime;
     private Button bt;
+    private Button upLoad;
+    private Gson gson = new Gson();
+    private LinearLayout linBt;
 
     @Override
     protected void initView() {
         setStatusBg(4);
+        bloodPresent = new BloodPresent(this);
         back = findViewById(R.id.back);
         readPic = findViewById(R.id.readPic);
         linTxt = findViewById(R.id.linTxt);
@@ -61,9 +71,12 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
         tempTxt = findViewById(R.id.tempTxt);
         time = findViewById(R.id.time);
         systemTime = findViewById(R.id.systemTime);
+        linBt = findViewById(R.id.linBt);
         bt = findViewById(R.id.bt);
+        upLoad = findViewById(R.id.upLoad);
         back.setOnClickListener(this);
         bt.setOnClickListener(this);
+        upLoad.setOnClickListener(this);
 
         resolveIntent(getIntent());
     }
@@ -106,7 +119,7 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
 //        mNfcText.setText("Payload:" + new String(ndefMessages[0].getRecords()[0].getPayload()) + "\n");
         readPic.setVisibility(View.GONE);
         linTxt.setVisibility(View.VISIBLE);
-        bt.setVisibility(View.VISIBLE);
+        linBt.setVisibility(View.VISIBLE);
 
         //将数据信息存储到本地
         try {
@@ -131,13 +144,13 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
                 Log.e("扫描后的数据信息 >>>>", "setNFCMsgView: " + record.getViewText());
 
                 ost.write("Tag ID(hex)：" + record.getViewText());
-                ost.write("产品信息：" +"\n");
-                ost.write("电池电量："+"\n");
-                ost.write("当前电池状态："+"\n");
-                ost.write("数据序号："+"\n");
-                ost.write("电流值："+"\n");
-                ost.write("温度值："+"\n");
-                ost.write("当前运行时间："+"\n");
+                ost.write("产品信息：" + "\n");
+                ost.write("电池电量：" + "\n");
+                ost.write("当前电池状态：" + "\n");
+                ost.write("数据序号：" + "\n");
+                ost.write("电流值：" + "\n");
+                ost.write("温度值：" + "\n");
+                ost.write("当前运行时间：" + "\n");
                 ost.write("当前系统时间：" + currentTime);
                 ost.write("\n");
                 ost.close();
@@ -176,6 +189,66 @@ public class ReadNfcActivity extends BaseNfcActivity implements View.OnClickList
                 time.setText("");
                 systemTime.setText("");
                 break;
+            case R.id.upLoad:
+                bloodPresent.getBloodMsg("123456789", "100%", "已充满", "动态血糖上位机",
+                        "BJYC-CM-01", "100%", "36.2℃", "2021-11-30 09:37:10",
+                        "192.168.12.2", "FF:00:55:88",
+                        "2021-11-30 15:41:10", "2021-11-30 09:37:10");
+                break;
         }
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        if (data != null) {
+            LogUtils.e("血糖数据上传 Success>>>>", data.toString());
+            String json = gson.toJson(data);
+            BloodDate bloodDate = gson.fromJson(json, BloodDate.class);
+            if (bloodDate.getCode() == 200) {
+                Toast.makeText(this, "数据上传成功", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "数据上传失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onError(String code, String msg) {
+        LogUtils.e("血糖数据上传 Error>>>>", code + "---" + msg);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showLoadingFileDialog() {
+
+    }
+
+    @Override
+    public void hideLoadingFileDialog() {
+
+    }
+
+    @Override
+    public void onProgress(long totalSize, long downSize) {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void onErrorCode(int code, String msg) {
+
     }
 }

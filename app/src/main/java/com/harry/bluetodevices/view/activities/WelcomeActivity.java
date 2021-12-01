@@ -1,4 +1,4 @@
-package com.harry.bluetodevices.view;
+package com.harry.bluetodevices.view.activities;
 
 import android.content.Intent;
 import android.nfc.NfcAdapter;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.harry.bluetodevices.R;
-import com.harry.bluetodevices.base.BaseActivity;
+import com.harry.bluetodevices.base.app.BaseActivity;
 import com.harry.bluetodevices.bluetooth.BluetoothActivity;
 import com.harry.bluetodevices.nfc.NfcActivity;
 
