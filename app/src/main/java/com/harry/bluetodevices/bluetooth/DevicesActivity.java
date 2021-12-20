@@ -170,7 +170,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
         LogUtils.e("当前设备名", name + "");
 
         //判断应用的蓝牙协议
-        if (name.equals("BJYC")) {//标准
+        if (name.equals("BJYC") || name.equals("BJYC-5DM-9C")
+                || name.equals("BJYC-5DM-9") || name.equals("BJYC-5DM-9A")) {//标准
             wrtMath.setVisibility(View.GONE);
             et_server.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -527,7 +528,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
 
             bytes[0] = (byte) 0xc5;
             bytes[1] = (byte) 0x05;
-            bytes[2] = (byte) 0xc4;
+//            bytes[2] = (byte) 0xc4;
+            bytes[2] = (byte) (bytes[0] ^ bytes[1]);
         } else if (sendName.equals("BJYC-TCL-1")) {
             nearTxt.setVisibility(View.VISIBLE);
             nearXz.setVisibility(View.VISIBLE);
@@ -535,7 +537,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
 
             bytes[0] = (byte) 0x75;
             bytes[1] = (byte) 0x02;
-            bytes[2] = (byte) 0x77;
+//            bytes[2] = (byte) 0x77;
+            bytes[2] = (byte) (bytes[0] ^ bytes[1]);
         }
 
         BleManager.getInstance().write(
@@ -639,7 +642,8 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
         }
 
         String bleName = ble.getName();
-        if (bleName.equals("BJYC")) {
+        if (bleName.equals("BJYC") || bleName.equals("BJYC-5DM-9C")
+                || bleName.equals("BJYC-5DM-9") || bleName.equals("BJYC-5DM-9A")) {
             try {
                 //将数据信息存储到本地
                 FileOutputStream fos = new FileOutputStream(getExternalFilesDir(null) + "/BJYC数据.txt", true);

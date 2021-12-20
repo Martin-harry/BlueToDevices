@@ -8,7 +8,7 @@ package com.harry.bluetodevices.bean;
  */
 public class BleService {
     //标准蓝牙协议
-    //BJYC
+    //BJYC、BJYC-5DM-9C、BJYC-5DM-9、BJYC-5DM-9A
     public static final String serviceUuid_BJYC_DF = "00001808-0000-1000-8000-00805f9b34fb";
     public static final String RUuid_BJYC__DF = "00002a18-0000-1000-8000-00805f9b34fb";
     public static final String RUuid_BJYC__DFL = "00002A18-0000-1000-8000-00805f9b34fb";

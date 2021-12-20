@@ -92,7 +92,7 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                     String bleDeviceName = bleDevice.getName();
                     Log.e("连接成功 设备仪器 >>>>", "onDetail: " + "当前设备名：" + bleDeviceName);
                     Intent intent = new Intent();
-                    if(bleDeviceName.equals("BJYC-CGM-01")){
+                    if(bleDeviceName.equals("BJYC_CGM_01")){
                         intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
                         intent.putExtra(BloodSugarActivity.KEY_DATA, bleDevice);
                         startActivity(intent);
@@ -192,7 +192,7 @@ public class BluetoothActivity extends BaseActivity implements View.OnClickListe
                         String bleDeviceName = bleDevice.getName();
                         Log.e("连接成功 设备仪器 >>>>", "onConnectSuccess: "+bleDeviceName );
                         Intent intent = new Intent();
-                        if(bleDeviceName.equals("BJYC-CGM-01")){
+                        if(bleDeviceName.equals("BJYC_CGM_01")){
                             intent.setClass(BluetoothActivity.this, BloodSugarActivity.class);
                             intent.putExtra(BloodSugarActivity.KEY_DATA, bleDevice);
                             startActivity(intent);

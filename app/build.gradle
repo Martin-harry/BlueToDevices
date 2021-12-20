@@ -41,6 +41,24 @@ android {
             }
         }
     }
+    signingConfigs {
+        def alias = "martin"
+        def password = "123456"
+        def filePath = "../test.jks"
+
+        debug {
+            keyAlias alias
+            keyPassword password
+            storeFile file(filePath)
+            storePassword(password)
+        }
+        release {
+            keyAlias alias
+            keyPassword password
+            storeFile file(filePath)
+            storePassword(password)
+        }
+    }
 
     // 友盟多渠道打包
     productFlavors {
