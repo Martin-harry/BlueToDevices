@@ -208,7 +208,6 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     String rid = et_rx.getText().toString().trim();
                     String DFS = DealNum.substring(BleService.RUuid_BJYC__DF, 4, 8);
-                    String DFSL = DealNum.substring(BleService.RUuid_BJYC__DFL, 4, 8);
                     LogUtils.e("服务以及特征值：---", DFS);
                     if (rid != null && !isEmpty(rid)) {
                         if (DFS.equalsIgnoreCase(rid)) {//2a18(BJYC)
@@ -233,6 +232,18 @@ public class DevicesActivity extends BaseActivity implements View.OnClickListene
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    String tid = et_tx.getText().toString().trim();
+                    String DFL = DealNum.substring(BleService.TUuid_BJYC__DFL, 4, 8);
+                    LogUtils.e("服务以及特征值：---", DFL);
+                    if (tid != null && !isEmpty(tid)) {
+                        if (DFL.equalsIgnoreCase(tid)) {//2a18(BJYC)
+                            Tid = BleService.TUuid_BJYC__DFL;
+                            if (bleDevice != null) {
+                                opeNotify(bleDevice);
+                            }
+                            LogUtils.e("服务以及特征值：---标准（写）", Tid);
+                        }
+                    }
                 }
 
                 @Override

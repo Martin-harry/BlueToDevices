@@ -11,7 +11,7 @@ public class BleService {
     //BJYC、BJYC-5DM-9C、BJYC-5DM-9、BJYC-5DM-9A
     public static final String serviceUuid_BJYC_DF = "00001808-0000-1000-8000-00805f9b34fb";
     public static final String RUuid_BJYC__DF = "00002a18-0000-1000-8000-00805f9b34fb";
-    public static final String RUuid_BJYC__DFL = "00002A18-0000-1000-8000-00805f9b34fb";
+    public static final String TUuid_BJYC__DFL = "00002A18-0000-1000-8000-00805f9b34fb";
 
     //非标准蓝牙协议
     //BJYC-XY-3A
